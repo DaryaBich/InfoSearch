@@ -6,7 +6,10 @@ public class WordWorker {
     public static void getWords() throws IOException {
         List<Series> series = Reader.readSeries("data/series.txt");
         Set<String> words = new HashSet<>();
-        series.stream().forEach(oneSeries-> words.addAll(WordWorker.getWords(oneSeries)));
+       series.stream().forEach(oneSeries-> {
+            words.addAll(WordWorker.getWords(oneSeries.description));
+            words.addAll(WordWorker.getWords(oneSeries.name));
+        });
         Reader.writeToFileByLine(words, "data/words.txt");
     }
 
